@@ -1,4 +1,20 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PriceCard from "../components/cards/PriceCard";
 const Home = () => {
+  const [prices, setPrices] = useState([]);
+  useEffect(() => {
+    fetchPrices();
+  }, []);
+  const fetchPrices = async () => {
+    const { data } = await axios.get("http://localhost:8000/api/prices");
+    console.log("Prices get request", data);
+    setPrices(data);
+  };
+  const handleClick = async (e) => {
+    e.preventDefault();
+    console.log("plan clicked");
+  };
   return (
     <div className="container-fluid">
       <div className="row col-md-6 offset-md-3 text-center">
@@ -7,13 +23,11 @@ const Home = () => {
         </h1>
         <p className="lead pb-4">Choose a plan that suites you best</p>
       </div>
-      <div className="row rows-cols-1 pt-5 mb-3 text-center"></div>
-      <div className="col">
-        <div className="card mb-4 rounded-3 shadow-sm">
-          <div className="card-header py-3">
-            <h4 className="my-0 fw-normal">BASIC</h4>
-          </div>
-        </div>
+      <div className="row pt-5 mb-3 text-center">
+        {prices &&
+          prices.map((price) => (
+            <PriceCard key={price.id} price={price} handleClick={handleClick} />
+          ))}
       </div>
     </div>
   );
