@@ -4,6 +4,8 @@ import Button from "../components/Button";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../context";
+import { useHistory } from "react-router-dom";
+
 const Register = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

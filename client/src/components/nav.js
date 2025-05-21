@@ -1,8 +1,8 @@
 import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
-import { isAuth } from "../utils/functions";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../context";
+
 const Nav = () => {
   const [state, setState] = useContext(UserContext);
   const history = useHistory();
