@@ -28,3 +28,50 @@ export const createSubscription = async (req, res) => {
     console.log(err);
   }
 };
+export const subscriptionStatus = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const subscriptions = await stripe.subscriptions.list({
+      customer: user.stripe_customer_id,
+      status: "all",
+      expand: ["data.default_payment_method"],
+    });
+    const updated = await User.findByIdAndUpdate(
+      user._id,
+      {
+        subscriptions: subscriptions.data,
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(updated);
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const subscriptions = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const subscriptions = await stripe.subscriptions.list({
+      customer: user.stripe_customer_id,
+      status: "all",
+      expand: ["data.default_payment_method"],
+    });
+    res.json(subscriptions);
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const customerPortal = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    const portalSession = await stripe.billingPortal.sessions.create({
+      customer: user.stripe_customer_id,
+      return_url: process.env.STRIPE_SUCCESS_URL,
+    });
+    res.json(portalSession.url);
+  } catch (err) {
+    console.log(err);
+  }
+};

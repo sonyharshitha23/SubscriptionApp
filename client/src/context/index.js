@@ -8,7 +8,10 @@ const UserProvider = ({ children }) => {
     token: "",
   });
   useEffect(() => {
-    setState(JSON.parse(localStorage.getItem("auth")));
+    const auth = JSON.parse(localStorage.getItem("auth"));
+    if (auth) {
+      setState(auth);
+    }
   }, []);
   const token = state && state.token ? state.token : "";
   axios.defaults.baseURL = process.env.REACT_APP_API;

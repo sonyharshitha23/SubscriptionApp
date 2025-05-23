@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../context";
 import { useHistory } from "react-router-dom";
+import { AiOutlineLogin } from "react-icons/ai";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -36,6 +37,11 @@ const Login = ({ history }) => {
     <div className="d-flex justify-content-center style=({height:80vh})">
       <div className="container align-items-center d-flex">
         <div className="row col-md-6 offset-md-3 text-center">
+          <AiOutlineLogin
+            size={64}
+            className="text-primary mb-3"
+            style={{ marginTop: "100px" }}
+          />
           <h1 className="pt-5 fw-bold">Login</h1>
           <p className="lead pb-4">
             Access your subscriptions. Anytime. Anywhere.

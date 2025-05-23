@@ -5,7 +5,8 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { UserContext } from "../context";
 import { useHistory } from "react-router-dom";
-
+import { AiOutlineHome } from "react-icons/ai";
+import { Link } from "react-router-dom";
 const Register = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const Register = ({ history }) => {
         );
         setState(data);
         localStorage.setItem("auth", JSON.stringify(data));
-        history.push("/");
+        history.push("/login");
       }
     } catch (err) {
       console.log(err);
@@ -42,6 +43,13 @@ const Register = ({ history }) => {
     <div className="d-flex justify-content-center style=({height:80vh})">
       <div className="container align-items-center d-flex">
         <div className="row col-md-6 offset-md-3 text-center">
+          <Link to="/">
+            <AiOutlineHome
+              size={64}
+              className="text-danger mb-3"
+              style={{ marginTop: "70px" }}
+            />
+          </Link>
           <h1 className="pt-5 fw-bold">Let's Get Started</h1>
           <p className="lead pb-4">
             Sign up for free. No credit card required.

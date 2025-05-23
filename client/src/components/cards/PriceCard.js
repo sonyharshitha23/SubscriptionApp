@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { UserContext } from "../../context";
-const PriceCard = ({ price, handleSubscription }) => {
+const PriceCard = ({ price, handleSubscription, userSubscriptions }) => {
   const [state] = useContext(UserContext);
   const dynamicDescription = (price) => {
     if (price.nickname === "BASIC") {
@@ -11,6 +11,8 @@ const PriceCard = ({ price, handleSubscription }) => {
       return "20 exclusive stocks";
     }
   };
+  console.log("Rendering PriceCard:", price.id);
+
   const buttonStyle = () => {
     return price.nickname === "BASIC" ? "btn-outline-danger" : "btn-danger";
   };
@@ -50,7 +52,9 @@ const PriceCard = ({ price, handleSubscription }) => {
             onClick={(e) => handleSubscription(e, price)}
             className={`w-100 btn btn-lg ${buttonStyle()}`}
           >
-            {buttonText()}
+            {userSubscriptions && userSubscriptions.includes(price.id)
+              ? "Access plan"
+              : buttonText()}
           </button>
         </div>
       </div>
